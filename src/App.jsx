@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import HomePage from './pages/HomePage';
 import SigninPage from './pages/SigninPage';
@@ -13,9 +13,10 @@ axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 export default function App() {
   const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
+  const location = useLocation();
   const [info, setInfo] = useState(user ? { user } : {});
   useEffect(() => {
-    if (!user) navigate('/');
+    if (!user && location.pathname !== '/cadastro') navigate('/');
   }, []);
   // if (!localStorage.user) return <>Oh no, my Queen!</>;
 
@@ -25,7 +26,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<SigninPage />} />
           <Route path="/cadastro" element={<SignupPage />} />
-          {}
           <Route path="/home" element={<HomePage />} />
           <Route path="/nova-transacao/:tipo" element={<TransactionsPage />} />
         </Routes>
