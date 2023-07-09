@@ -1,8 +1,19 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Infos } from '../context/core';
+import { useNavigate } from 'react-router-dom';
 
 export default function Transactions() {
+  const { user } = useContext(Infos);
+
   const [value, setValue] = useState(0);
+  useEffect(() => {
+    axios.get('/transactions').then(({ data }) => {
+      console.log(data);
+    })
+    .catch((err) => alert(err.message)); // prettier-ignore
+  }, []);
   const list = [
     {
       date: '30/11',
@@ -15,11 +26,14 @@ export default function Transactions() {
       value: 3000,
     },
   ];
+
+  /*  setValue(list.reduce((n, { value }) => value + n, 0)); 
+  /* Depois da get /transactions */
   return (
     <TransactionsContainer>
       <ul>
-        {list.map((i) => (
-          <ListItem date={i.date} title={i.title} money={i.value} value={value} setters={setValue} />
+        {list.map((i, index) => (
+          <ListItem key={index} date={i.date} title={i.title} money={i.value} value={value} setters={setValue} />
         ))}
       </ul>
 

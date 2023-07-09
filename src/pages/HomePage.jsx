@@ -2,31 +2,37 @@ import styled from 'styled-components';
 import { BiExit } from 'react-icons/bi';
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from 'react-icons/ai';
 import Transactions from '../components/Transactions';
+import VerifyAuth from '../components/auth/Verify';
+import { useContext } from 'react';
+import { Infos } from '../context/core';
 
 export default function HomePage() {
+  const { user } = useContext(Infos);
+
   return (
-    <HomeContainer>
-      <Header>
-        <h1>Olá, Fulano</h1>
-        <BiExit />
-      </Header>
-      <Transactions />
-      <ButtonsContainer>
-        <button>
-          <AiOutlinePlusCircle />
-          <p>
-            Nova <br /> entrada
-          </p>
-        </button>
-        <button>
-          <AiOutlineMinusCircle />
-          <p>
-            Nova <br />
-            saída
-          </p>
-        </button>
-      </ButtonsContainer>
-    </HomeContainer>
+    <VerifyAuth user={user}>
+      <HomeContainer>
+        <Header>
+          <h1>Olá, {user?.name}</h1>
+          <BiExit />
+        </Header>
+        <Transactions />
+        <ButtonsContainer>
+          <button>
+            <AiOutlinePlusCircle />
+            <p>
+              Nova <br /> entrada
+            </p>
+          </button>
+          <button>
+            <AiOutlineMinusCircle />
+            <p>
+              Nova <br /> saída
+            </p>
+          </button>
+        </ButtonsContainer>
+      </HomeContainer>
+    </VerifyAuth>
   );
 }
 
