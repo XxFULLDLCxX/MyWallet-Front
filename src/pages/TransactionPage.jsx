@@ -13,7 +13,7 @@ export default function TransactionsPage() {
     e.preventDefault();
     const body = {
       description: e.target.description.value,
-      value: Number(e.target.money.value).toFixed(1),
+      value: Number(e.target.money.value).toFixed(2),
       operation: tipo === 'entrada' ? 'input' : 'output',
     };
     axios.post('/transactions', body, { headers: { Authorization: `Bearer ${user.token}` } })
