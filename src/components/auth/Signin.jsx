@@ -29,9 +29,11 @@ export default function AuthSignin() {
   return (
     <form onSubmit={login}>
       <MyWalletLogo />
-      <input placeholder="E-mail" type="email" name="email" />
-      <input placeholder="Senha" type="password" autoComplete="new-password" name="password" />
-      <button>Entrar</button>
+      <input data-test="email" placeholder="E-mail" type="email" name="email" />
+      <input data-test="password" placeholder="Senha" type="password" autoComplete="new-password" name="password" />
+      <button data-test="sign-in-submit" type="submit">
+        Entrar
+      </button>
     </form>
   );
 }

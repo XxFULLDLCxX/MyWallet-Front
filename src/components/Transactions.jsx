@@ -26,7 +26,9 @@ export default function Transactions() {
 
       <article>
         <strong>Saldo</strong>
-        <Value color={total >= 0 ? 'input' : 'output'}>{total.toFixed(2).toString().replace('.', ',')}</Value>
+        <Value data-test="total-amount" color={total >= 0 ? 'input' : 'output'}>
+          {total.toFixed(2).toString().replace('.', ',')}
+        </Value>
       </article>
     </TransactionsContainer>
   );
@@ -38,9 +40,11 @@ function ListItem({ date, description, value, operation }) {
     <ListItemContainer>
       <div>
         <span>{date}</span>
-        <strong>{description}</strong>
+        <strong data-test="registry-name">{description}</strong>
       </div>
-      <Value color={operation}>{Number(value).toFixed(2).toString().replace('.', ',')}</Value>
+      <Value data-test="registry-amount" color={operation}>
+        {Number(value).toFixed(2).toString().replace('.', ',')}
+      </Value>
     </ListItemContainer>
   );
 }

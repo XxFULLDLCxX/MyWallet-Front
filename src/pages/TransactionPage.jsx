@@ -25,11 +25,13 @@ export default function TransactionsPage() {
   };
   return (
     <TransactionsContainer>
-      <h1>Nova TRANSAÇÃO</h1>
+      <h1>Nova {tipo}</h1>
       <form onSubmit={saveTransaction}>
-        <input placeholder="Valor" type="text" name="money" />
-        <input placeholder="Descrição" type="text" name="description" />
-        <button type="submit">Salvar TRANSAÇÃO</button>
+        <input data-test="registry-amount-input" placeholder="Valor" type="text" name="money" />
+        <input data-test="registry-name-input" placeholder="Descrição" type="text" name="description" />
+        <button data-test="registry-save" type="submit">
+          Salvar {tipo}
+        </button>
       </form>
     </TransactionsContainer>
   );

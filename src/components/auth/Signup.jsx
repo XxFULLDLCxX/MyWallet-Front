@@ -35,11 +35,19 @@ export default function AuthSignup() {
   return (
     <form onSubmit={signup}>
       <MyWalletLogo />
-      <input placeholder="Nome" type="text" name="name" />
-      <input placeholder="E-mail" type="email" name="email" />
-      <input placeholder="Senha" type="password" autoComplete="new-password" name="password" />
-      <input placeholder="Confirme a senha" type="password" autoComplete="new-password" name="confirmPassword" />
-      <button type="submit">Cadastrar</button>
+      <input data-test="name" placeholder="Nome" type="text" name="name" />
+      <input data-test="email" placeholder="E-mail" type="email" name="email" />
+      <input data-test="password" placeholder="Senha" type="password" autoComplete="new-password" name="password" />
+      <input
+        data-test="conf-password"
+        placeholder="Confirme a senha"
+        type="password"
+        autoComplete="new-password"
+        name="confirmPassword"
+      />
+      <button data-test="sign-up-submit" type="submit">
+        Cadastrar
+      </button>
     </form>
   );
 }

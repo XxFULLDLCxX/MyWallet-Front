@@ -15,8 +15,9 @@ export default function HomePage() {
     <VerifyAuth user={user}>
       <HomeContainer>
         <Header>
-          <h1>Olá, {user?.name}</h1>
+          <h1 data-test="user-name">Olá, {user?.name}</h1>
           <div
+            data-test="logout"
             onClick={() => {
               localStorage.clear();
               navigate('/');
@@ -27,13 +28,13 @@ export default function HomePage() {
         </Header>
         <Transactions />
         <ButtonsContainer>
-          <button onClick={() => navigate('/nova-transacao/entrada')}>
+          <button data-test="new-income" onClick={() => navigate('/nova-transacao/entrada')}>
             <AiOutlinePlusCircle />
             <p>
               Nova <br /> entrada
             </p>
           </button>
-          <button onClick={() => navigate('/nova-transacao/saida')}>
+          <button data-test="new-expense" onClick={() => navigate('/nova-transacao/saida')}>
             <AiOutlineMinusCircle />
             <p>
               Nova <br /> saída
