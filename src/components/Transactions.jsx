@@ -2,58 +2,45 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Infos } from '../context/core';
-import { useNavigate } from 'react-router-dom';
 
 export default function Transactions() {
   const { user } = useContext(Infos);
-
-  const [value, setValue] = useState(0);
+  const [transactions, setTransactions] = useState([]);
+  const [total, setTotal] = useState(0);
   useEffect(() => {
-    axios.get('/transactions').then(({ data }) => {
-      console.log(data);
-    })
-    .catch((err) => alert(err.message)); // prettier-ignore
+    axios.get('/transactions', { headers: { Authorization: `Bearer ${user.token}` } })
+      .then(({ data }) => {
+        setTransactions(data.slice(1));
+        setTotal(data[0])
+      })
+      .catch((err) => alert(err.message)); // prettier-ignore
   }, []);
-  const list = [
-    {
-      date: '30/11',
-      title: 'Almoço mãe',
-      value: -120,
-    },
-    {
-      date: '15/11',
-      title: 'Salário',
-      value: 3000,
-    },
-  ];
 
-  /*  setValue(list.reduce((n, { value }) => value + n, 0)); 
-  /* Depois da get /transactions */
   return (
     <TransactionsContainer>
       <ul>
-        {list.map((i, index) => (
-          <ListItem key={index} date={i.date} title={i.title} money={i.value} value={value} setters={setValue} />
+        {transactions.map((i, index) => (
+          <ListItem key={index} date={i.date} description={i.description} value={i.value} operation={i.operation} />
         ))}
       </ul>
 
       <article>
         <strong>Saldo</strong>
-        <Value color={'positivo'}>{value}</Value>
+        <Value color={total >= 0 ? 'input' : 'output'}>{total.toFixed(2).toString().replace('.', ',')}</Value>
       </article>
     </TransactionsContainer>
   );
 }
 
-function ListItem({ date, title, value }) {
+function ListItem({ date, description, value, operation }) {
   /* Verificar depois, talvez o value não possa ter sinal negativo, sendo só a cor que reflete o valor */
   return (
     <ListItemContainer>
       <div>
         <span>{date}</span>
-        <strong>{title}</strong>
+        <strong>{description}</strong>
       </div>
-      <Value color={value < 0 ? 'negative' : 'positive'}>{value.toFixed(2).toString().replace('.', ',')}</Value>
+      <Value color={operation}>{Number(value).toFixed(2).toString().replace('.', ',')}</Value>
     </ListItemContainer>
   );
 }
@@ -79,7 +66,7 @@ const TransactionsContainer = styled.article`
 const Value = styled.div`
   font-size: 16px;
   text-align: right;
-  color: ${(props) => (props.color === 'positive' ? 'green' : 'red')};
+  color: ${(props) => (props.color === 'input' ? 'green' : 'red')};
 `;
 const ListItemContainer = styled.li`
   display: flex;

@@ -9,11 +9,7 @@ import { useEffect, useState } from 'react';
 import { Infos } from './context/core';
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
-console.log('APP escopo global.');
-if (localStorage.getItem('user')) {
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + JSON.parse(localStorage.getItem('user')).token;
-  console.log('Ue', JSON.parse(localStorage.getItem('user')).token);
-}
+
 export default function App() {
   const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();

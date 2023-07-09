@@ -5,26 +5,35 @@ import Transactions from '../components/Transactions';
 import VerifyAuth from '../components/auth/Verify';
 import { useContext } from 'react';
 import { Infos } from '../context/core';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function HomePage() {
   const { user } = useContext(Infos);
+  const navigate = useNavigate();
 
   return (
     <VerifyAuth user={user}>
       <HomeContainer>
         <Header>
           <h1>Olá, {user?.name}</h1>
-          <BiExit />
+          <div
+            onClick={() => {
+              localStorage.clear();
+              navigate('/');
+            }}
+          >
+            <BiExit />
+          </div>
         </Header>
         <Transactions />
         <ButtonsContainer>
-          <button>
+          <button onClick={() => navigate('/nova-transacao/entrada')}>
             <AiOutlinePlusCircle />
             <p>
               Nova <br /> entrada
             </p>
           </button>
-          <button>
+          <button onClick={() => navigate('/nova-transacao/saida')}>
             <AiOutlineMinusCircle />
             <p>
               Nova <br /> saída
