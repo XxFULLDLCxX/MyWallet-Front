@@ -62,7 +62,9 @@ function ListItem({ id, date, description, value, operation, deleteItem }) {
       <Value data-test="registry-amount" color={operation}>
         {Number(value).toFixed(2).toString().replace('.', ',')}
       </Value>
-      <div onClick={() => deleteItem(id, description, value)}>x</div>
+      <div data-test="registry-delete" onClick={() => deleteItem(id, description, value)}>
+        x
+      </div>
     </ListItemContainer>
   );
 }
