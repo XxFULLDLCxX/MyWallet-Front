@@ -7,6 +7,7 @@ import TransactionsPage from './pages/TransactionPage';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Infos } from './context/core';
+import PutTransactionsPage from './pages/PutTransactionPaga';
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="/cadastro" element={<SignupPage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/nova-transacao/:tipo" element={<TransactionsPage />} />
+          <Route path="/editar-registro/:tipo/:id" element={<PutTransactionsPage />} />
         </Routes>
       </Infos.Provider>
     </PagesContainer>

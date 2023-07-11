@@ -22,7 +22,6 @@ export default function AuthSignin() {
         navigate('/home');
       })
       .catch((error) => {
-        setInfo({ ...rest, loading: false });
         alert(error.response.data.message);
       }); // prettier-ignore
   };

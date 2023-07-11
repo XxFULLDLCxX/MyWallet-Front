@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Infos } from '../context/core';
+import { Link, Navigate } from 'react-router-dom';
 
 export default function Transactions() {
   const { user } = useContext(Infos);
@@ -57,7 +58,13 @@ function ListItem({ id, date, description, value, operation, deleteItem }) {
     <ListItemContainer>
       <div>
         <span>{date}</span>
-        <strong data-test="registry-name">{description}</strong>
+        <Link
+          data-test="registry-name"
+          to={`/editar-registro/${operation === 'input' ? 'entrada' : 'saida'}/${id}`}
+          state={{ id, description, value, operation }}
+        >
+          {description}
+        </Link>
       </div>
       <Value data-test="registry-amount" color={operation}>
         {Number(value).toFixed(2).toString().replace('.', ',')}
@@ -99,6 +106,15 @@ const ListItemContainer = styled.li`
   margin-bottom: 8px;
   color: #000000;
   margin-right: 10px;
+  a {
+    color: #000000;
+    font-family: Raleway;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
   div {
     text-align: center;
     min-width: 15px;
