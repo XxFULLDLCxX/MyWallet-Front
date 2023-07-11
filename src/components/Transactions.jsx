@@ -1,8 +1,7 @@
-import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Infos } from '../context/core';
-import { Link, Navigate } from 'react-router-dom';
+import { Infos, axios_instance } from '../context/core';
+import { Link } from 'react-router-dom';
 
 export default function Transactions() {
   const { user } = useContext(Infos);
@@ -10,7 +9,7 @@ export default function Transactions() {
   const [total, setTotal] = useState(0);
   const [updating, setUpdating] = useState(0);
   useEffect(() => {
-    axios.get('/transactions', { headers: { Authorization: `Bearer ${user.token}` } })
+    axios_instance.get('/transactions', { headers: { Authorization: `Bearer ${user.token}` } })
       .then(({ data }) => {
         setTransactions(data.slice(1));
         setTotal(data[0])
@@ -22,7 +21,7 @@ export default function Transactions() {
   const deleteItem = async (id, description, value) => {
     console.log(id);
     if (!confirm(`Quer Deletar a Transação: ${description}, no valor de ${value}?`)) return;
-    axios.delete(`/transactions/${id}`, { headers: { Authorization: `Bearer ${user.token}` } })
+    axios_instance.delete(`/transactions/${id}`, { headers: { Authorization: `Bearer ${user.token}` } })
       .then(() => setUpdating(updating + 1))
       .catch((err) => alert(err.message)); // prettier-ignore
   };

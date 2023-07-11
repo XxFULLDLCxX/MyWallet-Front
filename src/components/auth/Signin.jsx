@@ -1,8 +1,7 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Infos } from '../../context/core';
+import { Infos, axios_instance } from '../../context/core';
 import MyWalletLogo from '../MyWalletLogo';
-import axios from 'axios';
 
 export default function AuthSignin() {
   const { setInfo, ...rest } = useContext(Infos);
@@ -15,7 +14,7 @@ export default function AuthSignin() {
       password: e.target.password.value,
     };
 
-    axios.post(`/auth/sign-in`, info)
+    axios_instance.post(`/auth/sign-in`, info)
       .then(({ data }) => {
         localStorage.setItem('user', JSON.stringify(data));
         setInfo({user: data, ...rest})

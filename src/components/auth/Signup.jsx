@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useContext } from 'react';
-import { Infos } from '../../context/core';
+import { Infos, axios_instance } from '../../context/core';
 import MyWalletLogo from '../MyWalletLogo';
 
 export default function AuthSignup() {
@@ -22,7 +21,7 @@ export default function AuthSignup() {
       password: e.target.password.value,
     };
 
-    axios.post(`/auth/sign-up`, info)
+    axios_instance.post(`/auth/sign-up`, info)
       .then(() => {
         navigate('/');
         setInfo({ ...rest, loading: false });

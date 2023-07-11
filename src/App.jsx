@@ -4,12 +4,9 @@ import HomePage from './pages/HomePage';
 import SigninPage from './pages/SigninPage';
 import SignupPage from './pages/SignupPage';
 import TransactionsPage from './pages/TransactionPage';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Infos } from './context/core';
 import PutTransactionsPage from './pages/PutTransactionPaga';
-
-axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
 export default function App() {
   const user = JSON.parse(localStorage.getItem('user'));

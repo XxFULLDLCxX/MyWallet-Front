@@ -1,8 +1,7 @@
-import axios from 'axios';
 import { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Infos } from '../context/core';
+import { Infos, axios_instance } from '../context/core';
 
 export default function PutTransactionsPage() {
   const navigate = useNavigate();
@@ -12,7 +11,7 @@ export default function PutTransactionsPage() {
   const br_operation = operation === 'input' ? 'entrada' : 'saida';
   const editTransaction = (e) => {
     e.preventDefault();
-    axios.put(`/transactions/${id}`,
+    axios_instance.put(`/transactions/${id}`,
         { description, value, operation },
         { headers: { Authorization: `Bearer ${user.token}` } }
       )

@@ -5,7 +5,7 @@ import Transactions from '../components/Transactions';
 import VerifyAuth from '../components/auth/Verify';
 import { useContext } from 'react';
 import { Infos } from '../context/core';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function HomePage() {
   const { user } = useContext(Infos);

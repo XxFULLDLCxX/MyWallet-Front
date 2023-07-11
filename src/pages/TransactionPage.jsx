@@ -1,8 +1,7 @@
-import axios from 'axios';
 import { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { Infos } from '../context/core';
+import { Infos, axios_instance } from '../context/core';
 
 export default function TransactionsPage() {
   // { description, value, operation };
@@ -16,7 +15,7 @@ export default function TransactionsPage() {
       value: Number(e.target.money.value).toFixed(2),
       operation: tipo === 'entrada' ? 'input' : 'output',
     };
-    axios.post('/transactions', body, { headers: { Authorization: `Bearer ${user.token}` } })
+    axios_instance.post('/transactions', body, { headers: { Authorization: `Bearer ${user.token}` } })
       .then(({ data }) => {
         console.log(data);
         navigate('/home');
